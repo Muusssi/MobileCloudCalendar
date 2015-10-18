@@ -52,7 +52,7 @@ router.route('/')
             name : name,
             description : description,
             events : events,
-            userID : userID,
+            creator : userID,
         }, function (err, calendar) {
               if (err) {
                   res.send("There was a problem adding the information to the database.");
