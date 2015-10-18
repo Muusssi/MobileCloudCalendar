@@ -37,7 +37,7 @@ router.route('/')
                         res.json(calendars);
                     }
                 });
-              }     
+              }
         });
     })
     //POST a new calendar
@@ -46,11 +46,13 @@ router.route('/')
         var name = req.body.name;
         var description = req.body.description;
         var events = req.body.events;
+        var userID = req.body.userID;
         //call the create function for our database
         mongoose.model('Calendar').create({
             name : name,
             description : description,
             events : events,
+            userID : userID,
         }, function (err, calendar) {
               if (err) {
                   res.send("There was a problem adding the information to the database.");
@@ -97,8 +99,8 @@ router.param('id', function(req, res, next, id) {
             // once validation is done save the new item in the req
             req.id = id;
             // go to the next thing
-            next(); 
-        } 
+            next();
+        }
     });
 });
 
@@ -180,7 +182,7 @@ router.put('/:id/edit', function(req, res) {
         }, function (err, calendarID) {
           if (err) {
               res.send("There was a problem updating the information to the database: " + err);
-          } 
+          }
           else {
               res.format({
                 html: function(){
@@ -256,7 +258,7 @@ router.route('/:id/events')
                         res.json(calendarEvents);
                     }
                 });
-              }     
+              }
         });
     })
     //POST a new calendarEvent
@@ -294,7 +296,7 @@ router.route('/:id/events')
           }
 
         });
-        
+
     });
 
 
@@ -324,8 +326,8 @@ router.param('eventId', function(req, res, next, eventId) {
             // once validation is done save the new item in the req
             req.eventId = eventId;
             // go to the next thing
-            next(); 
-        } 
+            next();
+        }
     });
 });
 
@@ -360,7 +362,7 @@ router.route('/:id/events/:eventId')
             }
           });
         }
-        
+
       }
     });
   });
@@ -413,7 +415,7 @@ router.put('/:id/events/:eventId/edit', function(req, res) {
           }, function (err, calendarEvent) {
             if (err) {
                 res.send("There was a problem updating the information to the database: " + err);
-            } 
+            }
             else {
                 res.format({
                     html: function(){
@@ -424,7 +426,7 @@ router.put('/:id/events/:eventId/edit', function(req, res) {
                       res.json(calendarEvent);
                    }
                 });
-            } 
+            }
           });
       }
     });
@@ -466,6 +468,3 @@ router.delete('/:id/events/:eventId/edit', function (req, res){
 
 
 module.exports = router;
-
-
-

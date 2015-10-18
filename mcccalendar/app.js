@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var db = require('./model/db');
 var calendar = require('./model/calendars');
+var user = require('./model/users');
 var calendarEvent = require('./model/calendarEvents');
 var routes = require('./routes/index');
 var calendars = require('./routes/calendars');
