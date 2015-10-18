@@ -206,11 +206,27 @@ router.delete('/:id/edit', function (req, res){
         if (err) {
             return console.error(err);
         } else {
+          if (calendar == null) {
+            console.log(req.id + ' was not found');
+            res.status(404)
+            var err = new Error('Not Found');
+            err.status = 404;
+            res.format({
+                html: function(){
+                    next(err);
+                 },
+                json: function(){
+                    res.json({message : err.status  + ' ' + err});
+                 }
+            });
+          }
+          else {
             //remove it from Mongo
             calendar.remove(function (err, calendar) {
                 if (err) {
                     return console.error(err);
                 } else {
+                    mongoose.model('CalendarEvent').find({ 'calendar': req.id }).remove();
                     //Returning success messages saying it was deleted
                     console.log('DELETE removing ID: ' + calendar._id);
                     res.format({
@@ -226,8 +242,9 @@ router.delete('/:id/edit', function (req, res){
                            });
                          }
                       });
-                }
-            });
+                  }
+              });
+          }
         }
     });
 });
@@ -241,7 +258,7 @@ router.delete('/:id/edit', function (req, res){
 //build the REST operations at the base for calendarEvents
 //this will be accessible from http://127.0.0.1:3000/calendars/:id/events if the default route for / is left unchanged
 router.route('/:id/events')
-    //GET all calendars
+    //GET all calendarEvents
     .get(function(req, res, next) {
         //retrieve all calendars from Monogo
         mongoose.model('CalendarEvent').find({'calendar' : req.id},function (err, calendarEvents) {
@@ -299,6 +316,55 @@ router.route('/:id/events')
 
     });
 
+router.route('/:id/events/text-search')
+    //text search all calendarEvents in calendar
+    .post(function(req, res, next) {
+        var search = req.body.search;
+        //retrieve all calendars from Monogo
+        mongoose.model('CalendarEvent').find({'calendar' : req.id, $text : { $search : search }},function (err, calendarEvents) {
+              if (err) {
+                  return console.error(err);
+              } else {
+                  //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
+                  res.format({
+                    html: function(){
+                        res.json(calendarEvents);
+                    },
+                    //JSON response will show all calendars in JSON format
+                    json: function(){
+                        res.json(calendarEvents);
+                    }
+                });
+              }
+        });
+    })
+
+router.route('/:id/events/time-search')
+    // time search all calendarEvents in calendar
+    // searches all events that begin within the given search time interval
+    .post(function(req, res, next) {
+        var begin = req.body.begin;
+        var end = req.body.end;
+        //retrieve all calendars from Monogo
+        //mongoose.model('CalendarEvent').find({'calendar': req.id, 'startTime': { '$lte' : end }, 'endTime': { '$gte' : begin } },function (err, calendarEvents) {
+        mongoose.model('CalendarEvent').find( {'calendar' : req.id, 'endTime' : {$gte : begin}, 'startTime' : {$lte : end} } ,function (err, calendarEvents) {
+
+              if (err) {
+                  return console.error(err);
+              } else {
+                  //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
+                  res.format({
+                    html: function(){
+                        res.json(calendarEvents);
+                    },
+                    //JSON response will show all calendars in JSON format
+                    json: function(){
+                        res.json(calendarEvents);
+                    }
+                });
+              }
+        });
+    })
 
 // route middleware to validate :eventId
 router.param('eventId', function(req, res, next, eventId) {
