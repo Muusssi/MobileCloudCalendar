@@ -30,11 +30,13 @@ router.route('/')
                   //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
                   res.format({
                     html: function(){
-                        res.json(calendars);
+                        // res.json(calendars);
+                        res.render('calendars', { calendars: calendars });
                     },
                     //JSON response will show all calendars in JSON format
                     json: function(){
                         res.json(calendars);
+                        // res.render('calendars', { objects: calendars });
                     }
                 });
               }
@@ -266,9 +268,11 @@ router.route('/:id/events')
                   return console.error(err);
               } else {
                   //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
+
                   res.format({
                     html: function(){
-                        res.json(calendarEvents);
+                      res.render('events', { events: calendarEvents });
+                        // res.json(calendarEvents);
                     },
                     //JSON response will show all calendars in JSON format
                     json: function(){

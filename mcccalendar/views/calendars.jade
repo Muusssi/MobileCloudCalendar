@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  div.top
+    h2 Calendars
+  div.container
+    div.content
+      table.table.table-striped
+        thead
+          tr
+            th Name
+            th Description
+            th Events
+        tbody
+          each calendar in calendars
+            tr
+              td
+                a(href='calendars/'+calendar.id+'/events')=calendar.name
+              td=calendar.description
+              td=calendar.events.length
+  div.footer

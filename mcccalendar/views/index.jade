@@ -1,26 +1,14 @@
 extends layout
 
 block content
-  div.top
+  div.top(align='center')
     form.form-horizontal(method="post", id="loginForm")
+      h3=title
       label Username
       input.span3(id="username", type="text", name="User", placeholder="Enter your username")
       label Password
-      input.span3(id="password", type="password", name="Password")
+      input.span3(id="password", type="password", placeholder="Enter your password", name="Password")
+      br
       input.btn(type="submit", value="Log In")
-  div.container
-    div.content
-      table.table.table-striped
-        thead
-          tr
-            th Table
-            th Heading
-        tbody
-          tr
-            td Blah
-            td Test
-          tr
-            td Hello
-            td World
 
   div.footer

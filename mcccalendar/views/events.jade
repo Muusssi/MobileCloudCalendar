@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  div.top
+    h2 Calendar Events
+  div.container
+    div.content
+      table.table.table-striped
+        thead
+          tr
+            th Title
+            th Description
+            th Location
+            th startTime
+            th endTime
+        tbody
+          each event in events
+            tr
+              td=event.title
+              td=event.description
+              td=event.location
+              td=event.startTime
+              td=event.endTime
+  div.footer
