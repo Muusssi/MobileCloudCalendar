@@ -2,9 +2,13 @@ extends layout
 
 block content
   div.top
-    h2 Calendar Events
+    h2 Calendar events
   div.container
     div.content
+      form(action=site_url+'/create')
+        button(class="btn btn-success btn-lg") New event
+      form(action='/calendars')
+        button(class="btn btn-primary btn-lg") Back to calendars
       table.table.table-striped
         thead
           tr
@@ -13,12 +17,22 @@ block content
             th Location
             th startTime
             th endTime
+            th
+            th
         tbody
           each event in events
             tr
-              td=event.title
+              td
+                a(href=site_url+'/'+event.id)=event.title
               td=event.description
               td=event.location
               td=event.startTime
               td=event.endTime
+              td
+                form(action=site_url+'/'+event.id+'/edit')
+                  button(class='btn btn-primary btn-lg') Edit
+              td
+                form(action=site_url+'/'+event.id+'/edit' method='POST')
+                  input(type='hidden', name='_method', value='DELETE')
+                  button(class='btn btn-danger btn-lg') Delete
   div.footer

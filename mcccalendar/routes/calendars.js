@@ -14,7 +14,7 @@ router.use(methodOverride(function(req, res){
         return method
       }
 }))
-
+// router.use(methodOverride('_method'))
 
 //build the REST operations at the base for calendars
 //this will be accessible from http://127.0.0.1:3000/calendars if the default route for / is left unchanged
@@ -271,7 +271,7 @@ router.route('/:id/events')
 
                   res.format({
                     html: function(){
-                      res.render('events', { events: calendarEvents });
+                      res.render('events', { events: calendarEvents, site_url:req.originalUrl.replace(/\/+$/, "") });
                         // res.json(calendarEvents);
                     },
                     //JSON response will show all calendars in JSON format
@@ -303,21 +303,28 @@ router.route('/:id/events')
           if (err) {
               res.send("There was a problem adding the information to the database.");
           } else {
-              //Calendar has been created
-              console.log('POST creating new calendarEvent: ' + calendarEvent);
-              res.format({
-                html: function(){
-                    res.json(calendarEvent);
-                },
-                //JSON response will show the newly created calendar
-                json: function(){
-                    res.json(calendarEvent);
-                }
-            });
+              res.redirect("/calendars/"+req.id+"/events");
           }
 
         });
 
+    });
+
+// Display new Event Form
+router.route('/:id/events/create')
+    //GET all calendarEvents
+    .get(function(req, res, next) {
+
+                  res.format({
+                    html: function(){
+                      res.render('events_create', {site_url:req.originalUrl.replace("/create","")});
+                        // res.json(calendarEvents);
+                    },
+                    //JSON response will show all calendars in JSON format
+                    json: function(){
+                        res.json(calendarEvents);
+                    }
+                });
     });
 
 router.route('/:id/events/text-search')
@@ -425,7 +432,7 @@ router.route('/:id/events/:eventId')
         else {
           res.format({
             html: function(){
-                res.json(calendarEvent);
+                res.render('event',{cal_event:calendarEvent});
             },
             json: function(){
                 res.json(calendarEvent);
@@ -448,7 +455,7 @@ router.route('/:id/events/:eventId/edit')
       } else {
         res.format({
           html: function(){
-              res.json(calendarEvent);
+              res.render('events_create', {cal_event:calendarEvent, site_url:req.originalUrl.replace("/create","")});
           },
           json: function(){
               res.json(calendarEvent);
@@ -489,7 +496,7 @@ router.put('/:id/events/:eventId/edit', function(req, res) {
             else {
                 res.format({
                     html: function(){
-                      res.json(calendarEvent);
+                      res.redirect("/calendars/"+req.id+"/events");
                    },
                    //JSON responds showing the updated values
                   json: function(){
@@ -519,9 +526,7 @@ router.delete('/:id/events/:eventId/edit', function (req, res){
                     console.log('DELETE removing ID: ' + calendarEvent._id);
                     res.format({
                           html: function(){
-                           res.json({message : 'deleted',
-                               item : calendarEvent
-                           });
+                           res.redirect("/calendars/"+req.id+"/events");
                          },
                          //JSON returns the item with the message that is has been deleted
                         json: function(){

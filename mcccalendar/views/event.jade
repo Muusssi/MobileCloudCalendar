@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  div.top
+  div.container
+    div.content
+      form(action='/calendars/'+cal_event.calendar+'/events')
+        button(class="btn btn-primary btn-lg") Back to calendar
+
+      h3 Title
+      label=cal_event.title
+      h3 Description
+      label=cal_event.description
+      h3 Location
+      label=cal_event.location
+      h3 Start Date and Time
+      label=cal_event.startTime
+      h3 End Date and Time
+      label=cal_event.endTime
+  div.footer

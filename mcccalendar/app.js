@@ -11,6 +11,7 @@ var calendarEvent = require('./model/calendarEvents');
 var routes = require('./routes/index');
 var calendars = require('./routes/calendars');
 var users = require('./routes/users');
+var methodOverride = require('method-override');
 
 var app = express();
 
@@ -21,6 +22,7 @@ app.set('port', 8080);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(methodOverride('_method'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

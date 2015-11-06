@@ -15,7 +15,7 @@ block content
           each calendar in calendars
             tr
               td
-                a(href='calendars/'+calendar.id+'/events')=calendar.name
+                a(href='/calendars/'+calendar.id+'/events')=calendar.name
               td=calendar.description
               td=calendar.events.length
   div.footer

@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  div.top
+    if cal_event
+      h2 Edit event
+    else
+      h2 Create new event
+  div.container
+    div.content
+      if cal_event
+        form(action=site_url, method='POST', enctype='application/x-www-form-urlencoded')
+          input(type='hidden', name='_method', value='PUT')
+          input(type='text' placeholder='title' name='title' value=cal_event.title)
+          br
+          input(type='text' placeholder='description' name='description' value=cal_event.description)
+          br
+          input(type='text' placeholder='location' name='location' value=cal_event.location)
+          br
+          link(rel='stylesheet', href='/stylesheets/jquery.datetimepicker.css')
+          script(src='/javascript/jquery.js')
+          script(src='/javascript/jquery.datetimepicker.full.min.js')
+          script(type='text/javascript').
+            $(document).ready(function() {
+            $('#startDatePick').datetimepicker({format:'m-d-Y H:i', step:15});
+            $('#endDatePick').datetimepicker({format:'m-d-Y H:i', step:15});
+            });
+          input(type='text', name='startTime', id='startDatePick', placeholder='start time', value=cal_event.startTime)
+          br
+          input(type='text', name='endTime', id='endDatePick', placeholder='end time', value=cal_event.endTime)
+          br
+          button(class="btn btn-success btn-lg") Save
+      else
+        form(action=site_url, method='POST')
+          input(type='text' placeholder='title' name='title')
+          br
+          input(type='text' placeholder='description' name='description')
+          br
+          input(type='text' placeholder='location' name='location')
+          br
+          link(rel='stylesheet', href='/stylesheets/jquery.datetimepicker.css')
+          script(src='/javascript/jquery.js')
+          script(src='/javascript/jquery.datetimepicker.full.min.js')
+          script(type='text/javascript').
+            $(document).ready(function() {
+            $('#startDatePick').datetimepicker({format:'m-d-Y H:i', step:15});
+            $('#endDatePick').datetimepicker({format:'m-d-Y H:i', step:15});
+            });
+          input(type='text', name='startTime', id='startDatePick', placeholder='start time')
+          br
+          input(type='text', name='endTime', id='endDatePick', placeholder='end time')
+          br
+          button(class="btn btn-success btn-lg") Create
+  div.footer
