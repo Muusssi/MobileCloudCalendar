@@ -9,6 +9,7 @@ block content
         button(class="btn btn-success btn-lg") New event
       form(action='/calendars')
         button(class="btn btn-primary btn-lg") Back to calendars
+      input(id="sync_button" class="btn btn-primary btn-lg" type='button', value='Sync whit Google Calendar', onclick='handleAuthClick(event)')
       table.table.table-striped
         thead
           tr

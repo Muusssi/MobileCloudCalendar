@@ -7,6 +7,8 @@ var calendarEventSchema = new mongoose.Schema({
   location: String,
   startTime: Date,
   endTime: Date,
+  etag: {type: String, default: null},
+  googleCalendarId: {type: String, default: null},
   calendar: {type: mongoose.Schema.Types.ObjectId, ref: 'Calendar'},
 });
 
