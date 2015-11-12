@@ -290,22 +290,56 @@ router.route('/:id/events')
         var location = req.body.location;
         var startTime = req.body.startTime;
         var endTime = req.body.endTime;
-        //call the create function for our database
-        mongoose.model('CalendarEvent').create({
-            title : title,
-            description : description,
-            location : location,
-            startTime : startTime,
-            endTime : endTime,
-            calendar : req.id,
-        }, function (err, calendarEvent) {
+        console.log("req.googleCalendarId:");
+        console.log(req.googleCalendarId);
+        mongoose.model('CalendarEvent').findOne({'calendar': req.id, 'googleCalendarId':req.googleCalendarId},function (err, calendarEvent) {
+          if (req.googleCalendarId == undefined || calendarEvent == null) {
+            console.log("New calendar event added");
+            //call the create function for our database
+            mongoose.model('CalendarEvent').create({
+                title : title,
+                description : description,
+                location : location,
+                startTime : startTime,
+                endTime : endTime,
+                etag: req.etag,
+                googleCalendarId: req.googleCalendarId,
+                calendar : req.id,
+            }, function (err, calendarEvent) {
 
-          if (err) {
-              res.send("There was a problem adding the information to the database.");
-          } else {
-              res.redirect("/calendars/"+req.id+"/events");
+              if (err) {
+                  res.send("There was a problem adding the information to the database.");
+              } else {
+                  res.redirect("/calendars/"+req.id+"/events");
+              }
+            });
           }
-
+          else {
+            calendarEvent.update({
+                title : title,
+                description : description,
+                location : location,
+                startTime : startTime,
+                endTime : endTime,
+                etag: req.etag,
+                calendar : req.id,
+              }, function (err, calendarEvent) {
+                if (err) {
+                    res.send("There was a problem updating the information to the database: " + err);
+                }
+                else {
+                  res.format({
+                    html: function(){
+                        res.redirect("/calendars/"+req.id+"/events");
+                     },
+                     //JSON responds showing the updated values
+                    json: function(){
+                        res.json(calendarEvent);
+                    }
+                  });
+                }
+            });
+          }
         });
 
     });

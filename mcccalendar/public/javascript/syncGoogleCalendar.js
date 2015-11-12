@@ -68,14 +68,14 @@ function syncCalendar() {
                     {
                         title: event.summary,
                         description: event.description,
-                        room: event.location,
+                        location: event.location,
                         startTime: event.start.dateTime,
                         endTime: event.end.dateTime,
                         googleCalendarId: event.id,
                         etag: event.etag,
                     }));
             }
-            //location.reload();
+            location.reload();
         }
     });
 
