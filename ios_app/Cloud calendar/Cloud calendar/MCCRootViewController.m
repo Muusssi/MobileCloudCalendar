@@ -74,6 +74,63 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)newCalendarButtonPressed:(id)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New Calendar"
+                                                    message:@"Enter calendar name and description"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Ok", nil];
+    alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+    [[alert textFieldAtIndex:1] setSecureTextEntry:NO];
+    [[alert textFieldAtIndex:1] setPlaceholder:@"description"];
+    [[alert textFieldAtIndex:0] setPlaceholder:@"name"];
+    [alert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == 1){
+        
+        // initialize RestKit
+        RKObjectManager *objectManager = [RKObjectManager sharedManager];
+        
+        // setup object mappings
+        RKObjectMapping *calMapping = [RKObjectMapping requestMapping];
+        [calMapping addAttributeMappingsFromDictionary:@{
+                                                         @"__id":@"id",
+                                                         @"__name": @"name",
+                                                         @"__description": @"description"
+                                                         }];
+        
+        // Now configure the request descriptor
+        RKRequestDescriptor *requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:calMapping objectClass:[MCCCalendar class] rootKeyPath:nil method:RKRequestMethodPOST];
+        [objectManager addRequestDescriptor:requestDescriptor];
+        
+        // register mappings with the provider using a response descriptor
+        RKResponseDescriptor *responseDescriptor =
+        [RKResponseDescriptor responseDescriptorWithMapping:calMapping
+                                                     method:RKRequestMethodPOST
+                                                pathPattern:@"/calendars"
+                                                    keyPath:nil
+                                                statusCodes:[NSIndexSet indexSetWithIndex:200]];
+        
+        [objectManager addResponseDescriptor:responseDescriptor];
+        
+        
+        MCCCalendar *calendar = [[MCCCalendar alloc] init];
+        calendar.__name = [alertView textFieldAtIndex:0].text;
+        calendar.__description = [alertView textFieldAtIndex:1].text;
+        
+        [[RKObjectManager sharedManager] postObject:calendar path:@"/calendars" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+            NSLog(@"SUCCESS! %@",mappingResult);
+            [self loadCalendars];
+        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+            NSLog(@"FAILED! %@",error);
+        }];
+    }
+}
+
 
 #pragma mark - UITableView delegate
 

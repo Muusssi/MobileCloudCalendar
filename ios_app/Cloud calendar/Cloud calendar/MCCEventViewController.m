@@ -20,7 +20,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    NSString *evenInfo = [NSString stringWithFormat:@"Title: %@\nDescription: %@\nLocation: %@\nStartTime: %@\nEndTime: %@",_eventItem.__title,_eventItem.__description,_eventItem.__location,_eventItem.__startTime,_eventItem.__endTime];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss zzz"];
+
+    NSString *startDate = [formatter stringFromDate:_eventItem.__startTime];
+    NSString *endDate = [formatter stringFromDate:_eventItem.__endTime];
+    
+    NSString *evenInfo = [NSString stringWithFormat:@"Title: %@\nDescription: %@\nLocation: %@\nStartTime: %@\nEndTime: %@",_eventItem.__title,_eventItem.__description,_eventItem.__location,startDate,endDate];
     
     self.textView.text = evenInfo;
 }

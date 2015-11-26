@@ -27,7 +27,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mAS-DZ-ReG">
@@ -35,7 +35,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -51,7 +51,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Calendars" id="iwt-0h-LSW">
-                        <barButtonItem key="rightBarButtonItem" title="New" id="X29-8m-bYG"/>
+                        <barButtonItem key="rightBarButtonItem" title="New" id="X29-8m-bYG">
+                            <connections>
+                                <action selector="newCalendarButtonPressed:" destination="V3s-aF-fg5" id="d3F-AG-ROp"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -63,7 +67,7 @@
             </objects>
             <point key="canvasLocation" x="163" y="357"/>
         </scene>
-        <!--New Event View Controller-->
+        <!--New Event-->
         <scene sceneID="mhw-jQ-tGX">
             <objects>
                 <viewController id="TgK-tN-nmu" customClass="MCCNewEventViewController" sceneMemberID="viewController">
@@ -74,16 +78,68 @@
                     <view key="view" contentMode="scaleToFill" id="suG-qJ-O68">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tLe-db-4iB">
+                                <rect key="frame" x="44" y="94" width="233" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="desciption" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fv8-iS-w2y">
+                                <rect key="frame" x="44" y="148" width="233" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sJy-bO-q59">
+                                <rect key="frame" x="44" y="199" width="233" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="start time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NOd-Rn-52l">
+                                <rect key="frame" x="44" y="253" width="233" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="dateFieldDidEndEditing:" destination="TgK-tN-nmu" eventType="editingDidEnd" id="Opp-gd-X2U"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="end time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9sV-KA-NLh">
+                                <rect key="frame" x="44" y="304" width="233" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="dateFieldDidEndEditing:" destination="TgK-tN-nmu" eventType="editingDidEnd" id="iVQ-LA-dIC"/>
+                                </connections>
+                            </textField>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="New Event" id="xxQ-aA-txx">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="v4X-eh-cOm">
+                            <connections>
+                                <action selector="donePressed:" destination="TgK-tN-nmu" id="d7K-Fs-SKi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="descriptionField" destination="Fv8-iS-w2y" id="YpM-Zu-L6A"/>
+                        <outlet property="endTime" destination="9sV-KA-NLh" id="GAv-A6-kbB"/>
+                        <outlet property="location" destination="sJy-bO-q59" id="sOu-3v-XjN"/>
+                        <outlet property="startTime" destination="NOd-Rn-52l" id="WjH-wB-Ft6"/>
+                        <outlet property="titleField" destination="tLe-db-4iB" id="O8G-CD-lPK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3yu-Ab-deY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1260" y="24"/>
         </scene>
-        <!--Calendar View Controller-->
+        <!--Title-->
         <scene sceneID="a39-0y-7Za">
             <objects>
                 <viewController id="Qhm-OI-FFu" customClass="MCCCalendarViewController" sceneMemberID="viewController">
@@ -112,7 +168,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9Ur-46-kiN">
@@ -120,7 +176,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -144,10 +200,16 @@
                             <constraint firstAttribute="trailing" secondItem="Bob-s6-Zq3" secondAttribute="trailing" id="z9m-gf-EyX"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="lrW-sp-kPa">
+                        <barButtonItem key="rightBarButtonItem" title="New event" id="uv7-U2-1AK">
+                            <connections>
+                                <segue destination="TgK-tN-nmu" kind="show" identifier="newEventSegue" id="cSn-sM-LaN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="tableView" destination="Bob-s6-Zq3" id="f7r-Fl-CvB"/>
-                        <segue destination="TgK-tN-nmu" kind="presentation" id="6mc-3c-o42"/>
                         <segue destination="fPt-UV-GZN" kind="show" identifier="eventViewSegue" id="tF4-pL-fKe"/>
                     </connections>
                 </viewController>

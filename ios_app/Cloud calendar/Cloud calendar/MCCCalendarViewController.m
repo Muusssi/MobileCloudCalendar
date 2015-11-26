@@ -10,6 +10,7 @@
 #import "MCCCalendarViewController.h"
 #import "MCCEvent.h"
 #import "MCCEventViewController.h"
+#import "MCCNewEventViewController.h"
 
 @interface MCCCalendarViewController ()
 
@@ -26,7 +27,7 @@
     self.navigationItem.title = self.calendarItem.__name;
     
     [self configureRestKit];
-    [self loadEvents];
+//    [self loadEvents];
 }
 
 - (void)configureRestKit
@@ -78,6 +79,17 @@
 }
 
 
+//- (IBAction)newEventButtonPressed:(id)sender
+//{
+//    
+//}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self loadEvents];
+}
+
+
 #pragma mark - UITableView delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -112,6 +124,10 @@
         MCCEvent *event =[_events objectAtIndex:[indexPath row]];
         MCCEventViewController *controller = (MCCEventViewController *)segue.destinationViewController;
         controller.eventItem= event;
+    } else if([segue.identifier isEqualToString:@"newEventSegue"]) {
+        
+        MCCNewEventViewController *controller = (MCCNewEventViewController *)segue.destinationViewController;
+        controller.calendarItem= self.calendarItem;
     }
 }
 
