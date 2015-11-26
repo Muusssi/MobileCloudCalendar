@@ -10,6 +10,8 @@
 
 @interface MCCEventViewController ()
 
+@property (nonatomic, weak) IBOutlet UITextView *textView;
+
 @end
 
 @implementation MCCEventViewController
@@ -17,6 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    NSString *evenInfo = [NSString stringWithFormat:@"Title: %@\nDescription: %@\nLocation: %@\nStartTime: %@\nEndTime: %@",_eventItem.__title,_eventItem.__description,_eventItem.__location,_eventItem.__startTime,_eventItem.__endTime];
+    
+    self.textView.text = evenInfo;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -10,4 +10,13 @@
 
 @interface MCCEvent : NSObject
 
+@property (nonatomic, strong) NSString *__id;
+@property (nonatomic, strong) NSString *__title;
+@property (nonatomic, strong) NSString *__description;
+@property (nonatomic, strong) NSString *__location;
+@property (nonatomic, strong) NSDate *__startTime;
+@property (nonatomic, strong) NSDate *__endTime;
+@property (nonatomic, strong) NSString *__calendar;
+@property (nonatomic, strong) NSString *__googleCalendarID;
+
 @end

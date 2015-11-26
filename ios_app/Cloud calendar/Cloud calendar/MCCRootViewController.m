@@ -9,6 +9,7 @@
 #import <RestKit/RestKit.h>
 #import "MCCRootViewController.h"
 #import "MCCCalendar.h"
+#import "MCCCalendarViewController.h"
 
 @interface MCCRootViewController ()
 
@@ -30,21 +31,25 @@
 {
     // initialize AFNetworking HTTPClient
     NSURL *baseURL = [NSURL URLWithString:@"http://localhost:8080"];
-    AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
     
     // initialize RestKit
-    RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
+    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:baseURL];
+    NSLog(@"%@",objectManager.defaultHeaders);
     
     // setup object mappings
     RKObjectMapping *calMapping = [RKObjectMapping mappingForClass:[MCCCalendar class]];
-    [calMapping addAttributeMappingsFromArray:@[@"name"]];
+    [calMapping addAttributeMappingsFromDictionary:@{
+                                                         @"_id":@"__id",
+                                                         @"name": @"__name",
+                                                         @"description": @"__description"
+                                                         }];
     
     // register mappings with the provider using a response descriptor
     RKResponseDescriptor *responseDescriptor =
     [RKResponseDescriptor responseDescriptorWithMapping:calMapping
                                                  method:RKRequestMethodGET
                                             pathPattern:@"/calendars"
-                                                keyPath:@"calendars"
+                                                keyPath:nil
                                             statusCodes:[NSIndexSet indexSetWithIndex:200]];
     
     [objectManager addResponseDescriptor:responseDescriptor];
@@ -87,9 +92,24 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     MCCCalendar *calendar = [_calendars objectAtIndex:indexPath.row];
-    cell.textLabel.text = calendar.name;
-    cell.detailTextLabel.text = calendar.description;
+    cell.textLabel.text = calendar.__name;
+    cell.detailTextLabel.text = calendar.__description;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"eventsSegue" sender:[tableView cellForRowAtIndexPath:indexPath]];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([segue.identifier isEqualToString:@"eventsSegue"]) {
+        UITableViewCell *cell = (UITableViewCell *) sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        MCCCalendar *calendar =[_calendars objectAtIndex:[indexPath row]];
+        MCCCalendarViewController *controller = (MCCCalendarViewController *)segue.destinationViewController;
+        controller.calendarItem= calendar;
+    }
 }
 
 /*

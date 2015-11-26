@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MCCEvent.h"
 
 @interface MCCEventViewController : UIViewController
+
+@property (nonatomic, strong) MCCEvent *eventItem;
 
 @end

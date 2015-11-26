@@ -10,7 +10,8 @@
 
 @interface MCCCalendar : NSObject
 
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *__name;
 @property (nonatomic, strong) NSString *__description;
+@property (nonatomic, strong) NSString *__id;
 
 @end

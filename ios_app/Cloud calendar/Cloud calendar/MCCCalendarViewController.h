@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MCCCalendar.h"
 
 @interface MCCCalendarViewController : UIViewController
+
+@property (nonatomic, strong) MCCCalendar *calendarItem;
 
 @end
