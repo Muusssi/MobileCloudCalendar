@@ -217,7 +217,7 @@
             </objects>
             <point key="canvasLocation" x="732" y="357"/>
         </scene>
-        <!--Event View Controller-->
+        <!--Title-->
         <scene sceneID="uCY-iC-hwB">
             <objects>
                 <viewController id="fPt-UV-GZN" customClass="MCCEventViewController" sceneMemberID="viewController">
@@ -230,23 +230,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Cva-2o-2ba">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="366"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hke-b0-zy3">
+                                <rect key="frame" x="79" y="458" width="163" height="45"/>
+                                <animations/>
+                                <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Hma-J2-u8N"/>
+                                    <constraint firstAttribute="width" constant="163" id="rci-Zu-4Df"/>
+                                </constraints>
+                                <state key="normal" title="Delete"/>
+                                <connections>
+                                    <action selector="deleteButtonPressed:" destination="fPt-UV-GZN" eventType="touchUpInside" id="BWb-Ei-Aee"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Hke-b0-zy3" secondAttribute="trailing" constant="78" id="7BK-E1-UYT"/>
                             <constraint firstAttribute="trailing" secondItem="Cva-2o-2ba" secondAttribute="trailing" id="8wA-FE-m0F"/>
+                            <constraint firstItem="Hke-b0-zy3" firstAttribute="leading" secondItem="0fp-Og-TRB" secondAttribute="leading" constant="79" id="Y4e-tG-BkQ"/>
+                            <constraint firstItem="XSB-tO-z0O" firstAttribute="top" secondItem="Hke-b0-zy3" secondAttribute="bottom" constant="21" id="d5o-eb-LUr"/>
                             <constraint firstItem="Cva-2o-2ba" firstAttribute="leading" secondItem="0fp-Og-TRB" secondAttribute="leading" id="mFm-dw-iXp"/>
-                            <constraint firstAttribute="bottom" secondItem="Cva-2o-2ba" secondAttribute="bottom" id="oMh-Oi-82H"/>
+                            <constraint firstAttribute="bottom" secondItem="Cva-2o-2ba" secondAttribute="bottom" constant="138" id="oMh-Oi-82H"/>
                             <constraint firstItem="Cva-2o-2ba" firstAttribute="top" secondItem="PIa-zI-Oho" secondAttribute="bottom" id="wn2-Br-Lqp"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="EPh-AV-o6B">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="NAw-Wk-lcm">
+                            <connections>
+                                <action selector="editButtonPressed:" destination="fPt-UV-GZN" id="8O2-jl-NIv"/>
+                                <segue destination="TgK-tN-nmu" kind="show" identifier="editEventSegue" id="BJc-7J-JSj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="textView" destination="Cva-2o-2ba" id="Yyv-ne-O0x"/>
@@ -275,4 +299,7 @@
             <point key="canvasLocation" x="-374" y="357"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="BJc-7J-JSj"/>
+    </inferredMetricsTieBreakers>
 </document>

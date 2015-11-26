@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "MCCCalendar.h"
+#import "MCCEvent.h"
 
 @interface MCCNewEventViewController : UIViewController
 
 @property (nonatomic, strong) MCCCalendar *calendarItem;
+@property (nonatomic, strong) MCCEvent *eventItem;
+
 
 @end

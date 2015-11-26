@@ -124,6 +124,7 @@
         MCCEvent *event =[_events objectAtIndex:[indexPath row]];
         MCCEventViewController *controller = (MCCEventViewController *)segue.destinationViewController;
         controller.eventItem= event;
+        controller.calendarItem = _calendarItem;
     } else if([segue.identifier isEqualToString:@"newEventSegue"]) {
         
         MCCNewEventViewController *controller = (MCCNewEventViewController *)segue.destinationViewController;
