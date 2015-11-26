@@ -4,7 +4,10 @@ var express = require('express'),
     bodyParser = require('body-parser'), //parses information from POST
     methodOverride = require('method-override'); //used to manipulate POST
 
-
+// router.use(function (req, res, next) {
+//
+//   next();
+// });
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(methodOverride(function(req, res){
       if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -30,11 +33,11 @@ router.route('/')
                   //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
                   res.format({
                     html: function(){
-                        // res.json(calendars);
                         res.render('calendars', { calendars: calendars });
                     },
                     //JSON response will show all calendars in JSON format
                     json: function(){
+                        console.log("JSON!");
                         res.json(calendars);
                         // res.render('calendars', { objects: calendars });
                     }

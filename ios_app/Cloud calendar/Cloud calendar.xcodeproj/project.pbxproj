@@ -17,6 +17,8 @@
 		E340AD621C0395DC006F0A99 /* MCCNewEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E340AD611C0395DC006F0A99 /* MCCNewEventViewController.m */; };
 		E340AD651C0395FE006F0A99 /* MCCEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E340AD641C0395FE006F0A99 /* MCCEventViewController.m */; };
 		E340AD681C03967B006F0A99 /* MCCCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E340AD671C03967B006F0A99 /* MCCCalendarViewController.m */; };
+		E37CBCF41C03C617000B80AF /* MCCCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = E37CBCF31C03C617000B80AF /* MCCCalendar.m */; };
+		E37CBCF71C03C61F000B80AF /* MCCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E37CBCF61C03C61F000B80AF /* MCCEvent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,10 @@
 		E340AD641C0395FE006F0A99 /* MCCEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCEventViewController.m; sourceTree = "<group>"; };
 		E340AD661C03967B006F0A99 /* MCCCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCCalendarViewController.h; sourceTree = "<group>"; };
 		E340AD671C03967B006F0A99 /* MCCCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCCalendarViewController.m; sourceTree = "<group>"; };
+		E37CBCF21C03C617000B80AF /* MCCCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCCalendar.h; sourceTree = "<group>"; };
+		E37CBCF31C03C617000B80AF /* MCCCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCCalendar.m; sourceTree = "<group>"; };
+		E37CBCF51C03C61F000B80AF /* MCCEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCEvent.h; sourceTree = "<group>"; };
+		E37CBCF61C03C61F000B80AF /* MCCEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCEvent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,7 @@
 		E32154911BF901DD0045A435 /* Cloud calendar */ = {
 			isa = PBXGroup;
 			children = (
+				E37CBCF11C03C5FB000B80AF /* Objects */,
 				E32154951BF901DD0045A435 /* AppDelegate.h */,
 				E32154961BF901DD0045A435 /* AppDelegate.m */,
 				E321549B1BF901DD0045A435 /* Main.storyboard */,
@@ -107,6 +114,17 @@
 				E32154931BF901DD0045A435 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E37CBCF11C03C5FB000B80AF /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				E37CBCF21C03C617000B80AF /* MCCCalendar.h */,
+				E37CBCF31C03C617000B80AF /* MCCCalendar.m */,
+				E37CBCF51C03C61F000B80AF /* MCCEvent.h */,
+				E37CBCF61C03C61F000B80AF /* MCCEvent.m */,
+			);
+			name = Objects;
 			sourceTree = "<group>";
 		};
 		F17CED584FCF740D3A6B913E /* Pods */ = {
@@ -239,7 +257,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E37CBCF41C03C617000B80AF /* MCCCalendar.m in Sources */,
 				E340AD651C0395FE006F0A99 /* MCCEventViewController.m in Sources */,
+				E37CBCF71C03C61F000B80AF /* MCCEvent.m in Sources */,
 				E32154971BF901DD0045A435 /* AppDelegate.m in Sources */,
 				E340AD681C03967B006F0A99 /* MCCCalendarViewController.m in Sources */,
 				E30CABE61C038FE6005B01DB /* MCCRootViewController.m in Sources */,
