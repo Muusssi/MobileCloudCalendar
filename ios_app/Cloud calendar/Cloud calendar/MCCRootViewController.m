@@ -81,7 +81,6 @@
                                                                                         cancelButtonTitle:@"OK"
                                                                                         otherButtonTitles:nil];
                                                   [alert show];
-                                                  //[alert release];
                                                   NSLog(@"Unable to connect the calendar server: %@", error);
                                               }];
 }

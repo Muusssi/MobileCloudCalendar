@@ -9,6 +9,7 @@
 #import <RestKit/RestKit.h>
 #import "MCCEventViewController.h"
 #import "MCCNewEventViewController.h"
+#import <EventKit/EventKit.h>
 
 @interface MCCEventViewController ()
 
@@ -60,6 +61,28 @@
         NSLog(@"FAILED! %@",error);
     }];
 }
+
+- (IBAction)syncButtonPressed:(id)sender
+{
+    EKEventStore *store = [[EKEventStore alloc] init];
+    [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        if (!granted) { return; }
+        EKEvent *event = [EKEvent eventWithEventStore:store];
+        event.title = _eventItem.__title;
+        event.startDate = _eventItem.__startTime;
+        event.endDate = _eventItem.__endTime;
+        event.calendar = [store defaultCalendarForNewEvents];
+        NSError *err = nil;
+        [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Event added"
+                                                        message:@"The event has been added to your local calendar."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }];
+}
+
 
 /*
 #pragma mark - Navigation
