@@ -19,12 +19,22 @@
 
 @implementation MCCRootViewController
 
+- (void)enterForeground {
+    [self configureRestKit];
+    [self loadCalendars];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
     
     [self configureRestKit];
     [self loadCalendars];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)configureRestKit
@@ -65,7 +75,14 @@
                                                   [self.tableView reloadData];
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                                                  NSLog(@"What do you mean by 'there is no coffee?': %@", error);
+                                                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection problems"
+                                                                                                  message:@"The app is unable to connect to the cloud calendar. Please check your internet connection."
+                                                                                                 delegate:nil
+                                                                                        cancelButtonTitle:@"OK"
+                                                                                        otherButtonTitles:nil];
+                                                  [alert show];
+                                                  //[alert release];
+                                                  NSLog(@"Unable to connect the calendar server: %@", error);
                                               }];
 }
 
